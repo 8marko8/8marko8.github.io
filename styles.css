@@ -108,5 +108,21 @@ body, .container {
     transition: none !important; /* Disable transition */
 }
 
+.credits {
+    font-size: 14;
+    color: blue;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+#Silent {
+    padding: 12px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
 
 
