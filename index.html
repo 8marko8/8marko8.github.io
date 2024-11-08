@@ -3,148 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css"> 
-    <title>Prime Check</title>
+    <link rel="stylesheet" href="CalculatorStyle.css">
+    <title>JS Calculator</title>
 </head>
-<body id="body">
-  <div class="container" id="container">
-    <h1>Prime Number Checker</h1>
-    <form id="primeForm">
-        <label for="number">Enter a number:</label>
-        <input type="text" id="number" name="number" placeholder="Enter a number">
-        <button type="submit">Check</button>
-    </form>
-  </div>
-  <div class="credits">
-    <h1>Made by 8marko on discord</h1>
-    <h1>Add me for any reason &lt;3</h1>
-  </div>
-  <img id="Silent" src="assets/HTML1.png">
-  <button id="DarkMode" onmouseover="onHover()" onmouseleave="onLeave()" onclick="onClick()">DM</button>
-  <p id="result"></p>
+<body>
+    <div class="buttons">
+        <div id="display">0</div>
+            
+        <div>
+            <button class="button" onclick="addInput('1')">1</button>
+            <button class="button" onclick="addInput('2')">2</button>
+            <button class="button" onclick="addInput('3')">3</button>
+            <button class="button" onclick="addInput('+')">+</button>
+        </div>
 
-  <script>
-    const body = document.getElementById('body');
-    const container = document.getElementById('container');
-    const label = document.getElementById('label');
-    var DMB = document.getElementById('DarkMode')
-    let DMTF = false;
+        <div>
+            <button class="button" onclick="addInput('4')">4</button>
+            <button class="button" onclick="addInput('5')">5</button>
+            <button class="button" onclick="addInput('6')">6</button>
+            <button class="button" onclick="addInput('-')">-</button>
+        </div>
 
-    // Prime number checker
-    function isPrime(num) {
-        if (num <= 1) return false;
-        for (let i = 2; i <= Math.sqrt(num); i++) {
-            if (num % i === 0) return false;
+        <div>
+            <button class="button" onclick="addInput('7')">7</button>
+            <button class="button" onclick="addInput('8')">8</button>
+            <button class="button" onclick="addInput('9')">9</button>
+            <button class="button" onclick="addInput('*')">*</button>
+        </div>
+
+        <div>
+            <button class="button" onclick="addInput('0')">0</button>
+            <button class="button" onclick="clearInput()">C</button>
+            <button class="button" onclick="calculate()">=</button>
+            <button class="button" onclick="addInput('/')">/</button>
+            <button class="button" onclick="removeInput()">
+                <img src="assetsTest/backspace.png" alt="Error"></img>
+            </button>
+        </div>
+    </div>
+    <script>
+        let CurrentInput = '';
+        function addInput(value) {
+            CurrentInput += value;
+            document.getElementById("display").textContent = CurrentInput
         }
-        return true;
-    }
-
-    document.getElementById("primeForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-
-        const numberInput = document.getElementById("number").value;
-        const number = parseInt(numberInput, 10);
-
-        // Temporarily remove transitions for immediate background change
-        body.classList.add('no-transition');
-        container.classList.add('no-transition');
-
-        if (isNaN(number)) {
-            document.querySelector('label[for="number"]').textContent = "Please enter a valid number.";
-            body.style.backgroundColor = "white";
-            resetTransition();
-            return;
+        function calculate() {
+            document.getElementById("display").textContent = eval(CurrentInput).toString();
+            CurrentInput = eval(CurrentInput).toString()
         }
-
-        const result = isPrime(number);
-        const resultBox = document.getElementById("result");
-
-        body.style.backgroundColor = result ? "lightgreen" : "lightcoral";
-        document.querySelector('label[for="number"]').textContent = result 
-          ? `${number} is a prime number!` 
-          : `${number} is not a prime number.`;
-        
-        resetTransition();
-    });
-
-    function resetTransition() {
-        setTimeout(() => {
-            body.classList.remove('no-transition');
-            container.classList.remove('no-transition');
-        }, 100);
-    }
-
-    // Hover Functions
-    function onHover() {
-        if (!DMTF) {
-            body.style.backgroundColor = "black";
-            container.style.backgroundColor = "black";
-            body.style.color = "white";
-            container.style.color = "white";
-            container.style.boxShadow = '3px 16px 16px rgba(255, 255, 255, 0.8)'
-            DMB.style.backgroundColor = "white"
-            DMB.style.color = "Black"
-            DMB.textContent = "LM"
+        function clearInput() {
+            document.getElementById("display").textContent = '0'
+            CurrentInput = ''
         }
-        else {
-            body.style.backgroundColor = "white";
-            container.style.backgroundColor = "white";
-            body.style.color = "black";
-            container.style.color = "black";
-            container.style.boxShadow = '3px 16px 16px rgba(0, 0, 0.2)'
-            DMB.style.backgroundColor = "black"
-            DMB.style.color = "white"
-            DMB.textContent = "DM"
+        function removeInput() {
+            if (document.getElementById("display").textContent.slice(0, -1)==='') {
+                document.getElementById("display").textContent = 0
+                CurrentInput = CurrentInput.slice(0, -1)
+            } else {
+                document.getElementById("display").textContent = document.getElementById("display").textContent.slice(0, -1)
+                CurrentInput = CurrentInput.slice(0, -1)
+            }
         }
-    }
-    function onLeave() {
-        if (!DMTF) {
-            body.style.backgroundColor = "white";
-            container.style.backgroundColor = "white";
-            body.style.color = "black";
-            container.style.color = "black";
-            container.style.boxShadow = '3px 16px 16px rgba(0, 0, 0, 0.2)'
-            DMB.style.backgroundColor = "black"
-            DMB.style.color = "white"
-            DMB.textContent = "DM"
-        }
-        else {
-              body.style.backgroundColor = "black";
-              container.style.backgroundColor = "black";
-              body.style.color = "white";
-              container.style.color = "white";
-              container.style.boxShadow = '3px 16px 16px rgba(255, 255, 255, 0.8)'
-              DMB.style.backgroundColor = "white"
-              DMB.style.color = "black"
-              DMB.textContent = "LM"
-        }
-    }
-    // Dark Mode Toggle Function
-    function onClick() {
-        DMTF = !DMTF; // Toggle dark mode
-
-        if (DMTF) {
-            DMB.style.backgroundColor = "white"
-            DMB.style.color = "Black"
-            DMB.textContent = "LM"
-            body.style.backgroundColor = "black";
-            container.style.backgroundColor = "black";
-            body.style.color = "white";
-            container.style.color = "white";
-            container.style.boxShadow = '3px 16px 16px rgba(255, 255, 255, 0.8)'
-            label.style.color = '#cbcbcb'
-        } else {
-            DMB.style.backgroundColor = "black"
-            DMB.style.color = "White"
-            DMB.textContent = "DM"
-            body.style.backgroundColor = "white";
-            container.style.backgroundColor = "white";
-            body.style.color = "black";
-            container.style.color = "black";
-            container.style.boxShadow = '3px 16px 16px rgba(0, 0, 0, 0.2)';
-            label.style.color = '#4d4d4d';
-        }
-    }
-  </script>
+    </script>
 </body>
 </html>
