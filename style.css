@@ -1,0 +1,93 @@
+/* To hide the checkbox */
+#checkboxInput {
+    display: none;
+  }
+  
+  .toggleSwitch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    right: 50%;
+    width: 50px;
+    height: 30px;
+    background-color: rgb(187, 187, 187);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  .toggleSwitch::after {
+    content: "";
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    left: 5px;
+    background-color: transparent;
+    border-radius: 50%;
+    transition-duration: .2s;
+    box-shadow: 5px 2px 7px rgba(8, 8, 8, 0.26);
+    border: 5px solid white;
+  }
+  
+  #checkboxInput:checked+.toggleSwitch::after {
+    transform: translateX(100%);
+    transition-duration: .2s;
+    background-color: #3c3c3c;
+  }
+  /* Switch background change */
+  #checkboxInput:checked+.toggleSwitch {
+    background-color: #3c3c3c;
+    transition-duration: 0s;
+  }
+  @font-face {
+    font-family: 'MyCustomFont';
+    src: url('Anton-Regular.ttf') format('truetype'); /* Path to your font */
+  }
+  body {
+    background-color: white;
+    font-size: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    font-family: 'MyCustomFont', sans-serif;
+    transition: color 0.3s ease, text-shadow 0.3s ease, background-color 0.3s ease !important
+  }
+  .Font {
+    background-color: white;
+    color: white;
+    text-shadow: 
+        -2px -2px 0 black,
+        2px -2px 0 black,
+        -2px 2px 0 black,
+        2px 2px 0 black;
+    font-size: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    font-family: 'MyCustomFont', sans-serif;
+    transition: color 0.3s ease, text-shadow 0.3s ease, background-color 0.3s ease !important
+  }
+  .FontInvert {
+    background-color: black;
+    color: black;
+    text-shadow: 
+        -2px -2px 0 white,
+        2px -2px 0 white,
+        -2px 2px 0 white,
+        2px 2px 0 white;
+    font-size: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    font-family: 'MyCustomFont', sans-serif;
+    transition: color 0.3s ease, text-shadow 0.3s ease, background-color 0.3s ease !important
+  }
