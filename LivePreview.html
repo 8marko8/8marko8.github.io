@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hi world!</title>
+    </head>
+    <body>
+        <style>
+            body {
+                transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+                font-family: 'Courier New', Courier, monospace;
+            }
+            .title {
+                display: flex;
+                font-size: 64px;
+                justify-content: center;
+                align-content: center;
+            }
+            .list {
+                font-size: 25px;
+            }
+            input[type="checkbox"] {
+                cursor: pointer
+            }
+            .progressbar {
+                display: flex;
+                font-size: 64px;
+                justify-content: center;
+                align-content: flex-end;
+            }
+        </style>
+        <div class="title">
+            Things I want right now.
+        </div>
+        <div class="list">
+            <div class="list-item" id="item1">
+              <span>1. Food</span>
+              <input type="checkbox" id="box1" class="mycheckbox">
+            </div>
+            <div class="list-item" id="item2">
+              <span>2. Love</span>
+              <input type="checkbox" id="box2" class="mycheckbox">
+            </div>
+            <div class="list-item" id="item3">
+                <span>3. Rest</span>
+                <input type="checkbox" id="box3" class="mycheckbox">
+            </div>
+            <div class="list-item" id="item4">
+                <span>4. Peace</span>
+                <input type="checkbox" id="box4" class="mycheckbox">
+            </div>
+        </div>
+        <div class="progressbar" id="progressbar">
+            0% Happiness
+        </div>
+          <script>
+            let Fprcnt = 0
+            let Face = ":("
+            function updateState() {
+                let checkboxes = document.querySelectorAll(".mycheckbox");
+                let checkedCount = [...checkboxes].filter(checkbox => checkbox.checked).length;
+                let brightness = Math.round((checkedCount / checkboxes.length) * 255);
+                let darkness = Math.round(((checkboxes.length - checkedCount) / checkboxes.length) * 255);
+                let textColor = brightness <= 128 ? "white" : "black"
+                function getPercentage() {
+                    Fprcnt = (checkedCount / checkboxes.length) * 100
+                }
+                document.body.style.backgroundColor = `rgb(${brightness}, ${brightness}, ${brightness})`
+                document.body.style.color = textColor
+                getPercentage()
+                function updateFace() {
+                    if (Fprcnt < 50) {
+                        Face = "☹️";
+                    }
+                    if (Fprcnt >= 50 && Fprcnt !== 100) {
+                        Face = "😐";
+                    }
+                    if (Fprcnt === 100) {
+                        Face = "😃";
+                    }
+                }
+                updateFace()
+                document.getElementById("progressbar").textContent = Fprcnt.toFixed(0) + "% Happiness " + Face
+            }
+            document.querySelectorAll(".mycheckbox").forEach(checkbox => {
+                checkbox.addEventListener("change", updateState);
+            });
+            updateState()
+          </script>
+    </body>
+</html>
