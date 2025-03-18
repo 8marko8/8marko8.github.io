@@ -29,46 +29,130 @@
                 justify-content: center;
                 align-content: flex-end;
             }
+            .AddList {
+                display: flex;
+                justify-content: center;
+                align-content: center;
+            }
+            .ListBox {
+                font-size: 25px;
+                padding: 10px;
+                border: 2px solid black;
+                border-radius: 15px;
+                transition: border 0.3s ease-in-out;
+            }
+            .ListBox:hover {
+                border: 2px solid blue;
+                outline: none;
+            }
+            .ListBox:focus {
+                border: 2px solid blue;
+                outline: none;
+            }
+            .buttonList:hover {
+                font-size: 25px;
+                padding: 10px;
+                border: 2px solid blue;
+                border-radius: 15px;
+                cursor: pointer;
+            }
+            .buttonList {
+                font-size: 25px;
+                padding: 10px;
+                border: 2px solid black;
+                border-radius: 15px;
+                cursor: pointer;
+                transition: border 0.3s ease-in-out;
+            }
+            .DelList {
+                cursor: pointer;
+                border: black;
+                outline: red;
+                background-color: white;
+                transition: background-color 0.3s ease-in-out;
+            }
+            .DelList:hover {
+                background-color: red;
+                border: black;
+                outline: red;
+                transition: background-color 0.3s ease-in-out;
+            }
+            .DelList:focus {
+                background-color: red;
+                border: black;
+                outline: red;
+                transition: background-color 0.3s ease-in-out;
+            }
         </style>
         <div class="title">
-            Things I want right now.
+            Things I want right now
         </div>
         <div class="list">
-            <div class="list-item" id="item1">
-              <span>1. Food</span>
-              <input type="checkbox" id="box1" class="mycheckbox">
-            </div>
-            <div class="list-item" id="item2">
-              <span>2. Love</span>
-              <input type="checkbox" id="box2" class="mycheckbox">
-            </div>
-            <div class="list-item" id="item3">
-                <span>3. Rest</span>
-                <input type="checkbox" id="box3" class="mycheckbox">
-            </div>
-            <div class="list-item" id="item4">
-                <span>4. Peace</span>
-                <input type="checkbox" id="box4" class="mycheckbox">
-            </div>
+        </div>
+        <div class="AddList" id="AddList">
+            <input class="ListBox" type="text" id="AddListInput" placeholder="Add a new want">
+            <button class="buttonList" onclick="AddList()">Add</button>
         </div>
         <div class="progressbar" id="progressbar">
             0% Happiness
         </div>
           <script>
-            let Fprcnt = 0
-            let Face = ":("
+            let Fprcnt = 0;
+            function AddList() {
+                let AddListInput = document.getElementById("AddListInput").value;
+                let list = document.querySelector(".list");
+                let listitem = document.createElement("div");
+                listitem.classList.add("list-item");
+                listitem.id = "item" + (document.querySelectorAll(".list-item").length + 1);
+                let span = document.createElement("span");
+                span.textContent = document.querySelectorAll(".list-item").length + 1 + ". " + AddListInput;
+                let input = document.createElement("input");
+                input.type = "checkbox";
+                input.id = "box" + (document.querySelectorAll(".list-item").length + 1);
+                input.classList.add("mycheckbox");
+                listitem.appendChild(span);
+                listitem.appendChild(input);
+                list.appendChild(listitem);
+                input.addEventListener("change", updateState);
+                document.getElementById("AddListInput").value = "";
+                if (AddListInput === "") {
+                    listitem.remove();
+                }
+                let deleteButton = document.createElement("input");
+                deleteButton.type = "button";
+                deleteButton.value = "X";
+                deleteButton.classList.add("DelList");
+                deleteButton.onclick = function () {
+                    listitem.remove();
+                    updateState();
+                    updateNumbering();
+                };
+                listitem.appendChild(deleteButton);
+                updateState();
+            }
+
+            function updateNumbering() {
+                const listItems = document.querySelectorAll(".list-item");
+                listItems.forEach((item, index) => {
+                    const span = item.querySelector("span");
+                    const text = span.textContent.split(". ")[1];
+                    span.textContent = (index + 1) + ". " + text;
+                });
+            }
+
             function updateState() {
                 let checkboxes = document.querySelectorAll(".mycheckbox");
                 let checkedCount = [...checkboxes].filter(checkbox => checkbox.checked).length;
                 let brightness = Math.round((checkedCount / checkboxes.length) * 255);
                 let darkness = Math.round(((checkboxes.length - checkedCount) / checkboxes.length) * 255);
-                let textColor = brightness <= 128 ? "white" : "black"
+                let textColor = brightness <= 128 ? "white" : "black";
+                let Face = "";
                 function getPercentage() {
-                    Fprcnt = (checkedCount / checkboxes.length) * 100
+                    Fprcnt = (checkedCount / checkboxes.length) * 100;
                 }
-                document.body.style.backgroundColor = `rgb(${brightness}, ${brightness}, ${brightness})`
-                document.body.style.color = textColor
-                getPercentage()
+                document.body.style.backgroundColor = `rgb(${brightness}, ${brightness}, ${brightness})`;
+                document.body.style.color = textColor;
+                getPercentage();
                 function updateFace() {
                     if (Fprcnt < 50) {
                         Face = "☹️";
@@ -80,13 +164,19 @@
                         Face = "😃";
                     }
                 }
-                updateFace()
-                document.getElementById("progressbar").textContent = Fprcnt.toFixed(0) + "% Happiness " + Face
+                updateFace();
+                document.getElementById("progressbar").textContent = Fprcnt.toFixed(0) + "% Happiness " + Face;
+                if (checkboxes.length === undefined || checkboxes.length === 0) {
+                    document.getElementById("progressbar").textContent = "No happiness, Add something to want.";
+                    document.body.style.backgroundColor = "white";
+                    document.body.style.color = "black";
+                }
+
             }
             document.querySelectorAll(".mycheckbox").forEach(checkbox => {
                 checkbox.addEventListener("change", updateState);
             });
-            updateState()
+            updateState();
           </script>
     </body>
 </html>
