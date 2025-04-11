@@ -24,8 +24,11 @@
             var omniman = document.getElementById("omniman");
             var title = document.getElementById("title");
             var thiccImage = new Image();
+            var sound = new Audio();
+            sound.src = "OMNI.mp3";
             thiccImage.src = "Thicc.png"; 
             function changeImage() {
+                sound.play();
                 omniman.style.marginTop = "140px";
                 omniman.src = "Thicc.png";
                 title.textContent = "DAMN!";
