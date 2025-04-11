@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title id="title">Omni man</title>
+    </head>
+    <body>
+        <style>
+            body, html, image, button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: white;
+                height: 100%;
+                margin: 0;
+            }
+            image:hover {
+                cursor: pointer;
+            }
+        </style>
+        <img src="Regular.png" id="omniman" class="image" height=600px onclick="changeImage()">
+        <script>
+            var omniman = document.getElementById("omniman");
+            var title = document.getElementById("title");
+            var thiccImage = new Image();
+            thiccImage.src = "Thicc.png"; 
+            function changeImage() {
+                omniman.style.marginTop = "140px";
+                omniman.src = "Thicc.png";
+                title.textContent = "DAMN!";
+                omniman.style.height = "400px";
+                setTimeout(() => {
+                    omniman.style.marginTop = "0px";
+                    omniman.src = "Regular.png";
+                    omniman.style.height = "600px";
+                    title.textContent = "Omni man";
+                }, 1000);
+            }
+        </script>
+    </body>
+</html>
