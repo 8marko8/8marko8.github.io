@@ -6,8 +6,9 @@
         <title id="title">Omni man</title>
     </head>
     <body>
+        <img src="Regular.png" id="omniman" class="Omniman" height=600px onclick="changeImage()">
         <style>
-            body, html, image, button {
+            body, html, .Omniman, button {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -15,11 +16,10 @@
                 height: 100%;
                 margin: 0;
             }
-            image:hover {
+            .Omniman:hover {
                 cursor: pointer;
             }
         </style>
-        <img src="Regular.png" id="omniman" class="image" height=600px onclick="changeImage()">
         <script>
             var omniman = document.getElementById("omniman");
             var title = document.getElementById("title");
@@ -33,11 +33,13 @@
                 omniman.src = "Thicc.png";
                 title.textContent = "DAMN!";
                 omniman.style.height = "400px";
+                omniman.style.cursor = "default";
                 setTimeout(() => {
                     omniman.style.marginTop = "0px";
                     omniman.src = "Regular.png";
                     omniman.style.height = "600px";
                     title.textContent = "Omni man";
+                    omniman.style.cursor = "pointer";
                 }, 1000);
             }
         </script>
